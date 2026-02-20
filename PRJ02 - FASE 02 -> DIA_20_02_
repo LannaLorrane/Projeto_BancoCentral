@@ -1,0 +1,82 @@
+from datetime import datetime
+
+
+class Banco:
+    def __init__(self):
+        self._nome = ""
+        self._codigo_bacen = 0
+        self.codigo_bacen_str = ""
+
+    @property
+    def nome(self):
+        return self._nome.upper()
+
+    @nome.setter
+    def nome(self, value):
+        self._nome = value
+
+    @property
+    def codigo_bacen2(self):
+        return self._codigo_bacen
+
+    @codigo_bacen2.setter
+    def codigo_bacen2(self, value):
+        if value < 0:
+            raise ValueError("CodigoBACEN não pode ser negativo.")
+        self._codigo_bacen = value
+
+
+class ContaBancaria:
+    def __init__(self):
+        self.agencia = ""
+        self.numero_conta = ""
+        self._saldo = 0.0
+
+    @property
+    def saldo(self):
+        return self._saldo
+
+
+class Transacao:
+    def __init__(self):
+        self._valor = 0.0
+        self.data = datetime.now()
+        self.tipo = ""
+        self.conta_origem = None
+        self.conta_destino = None
+
+    @property
+    def valor(self):
+        return self._valor
+
+    @valor.setter
+    def valor(self, value):
+        if value > 0:
+            self._valor = value
+        else:
+            raise ValueError("Erro: o valor da transação deve ser positivo")
+
+
+# ======= MAIN =======
+
+if __name__ == "__main__":
+    # Criando o banco
+    meu_banco = Banco()
+    meu_banco.nome = "Banco do Brasil"
+    meu_banco.codigo_bacen_str = "001"
+
+    transacao = Transacao()
+
+    try:
+        transacao.valor = 20
+        transacao.tipo = "Pix"
+        print("Transação realizada com sucesso!")
+
+    except ValueError as e:
+        print(f"Erro Argument: {e}")
+
+    except ZeroDivisionError:
+        print("Erro impossível dividir por 0")
+
+    except Exception as e:
+        print(f"Erro Exception: {e}")
